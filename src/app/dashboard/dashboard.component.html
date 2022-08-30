@@ -1,0 +1,24 @@
+<div style="font-size: 18px; height: 200px;">
+    <div class="text-center">
+        <img src="/assets/images/home-logo.jpg" alt="mpsas-bank-logo" width="50" height="50">
+    </div>
+    <div class="header">
+        <p>LTI Bank</p>
+        <p>Welcome, {{name | uppercase}}</p>
+        <ul style="float: right;">
+            <li [routerLink]="['/change-password']">Change Password</li>
+            <li [routerLink]="['/logout']">Logout</li>
+        </ul>
+    </div>
+    <div>
+        <ul class="sidebar">
+            <li [routerLink]="['/user-profile']">User Profile</li>
+            <li [routerLink]="['/account-summary']">Account Summary</li>
+            <li [routerLink]="['/account-statement']">Account Statement</li>
+            <li [routerLink]="['/fund-transfer']">Fund Transfer</li>
+            <li [routerLink]="['/add-beneficiary']">Add Beneficiary</li>
+            <li [routerLink]="['/view-beneficiary']">Saved Beneficiaries</li>
+        </ul>
+    </div>
+</div>
+<!-- <app-footer></app-footer> -->

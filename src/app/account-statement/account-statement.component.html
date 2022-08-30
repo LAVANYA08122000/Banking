@@ -1,0 +1,40 @@
+<app-dashboard></app-dashboard>
+<div class="wrapper container transaction" >
+  <form class="form-inline" name="form" (ngSubmit)="f.form.valid && accountStatement()" #f="ngForm">
+    <div class="form-group" style="margin-top: 2%;">
+      <label for="from-date">From:</label>
+      <input type="date" class="form-control" name="fromDate" [(ngModel)]="statementDuration.fromDate" #fromDate="ngModel" [max]=statementDuration.toDate>
+    </div>
+    <div class="form-group" style="margin-top: 2%;">
+      <label for="from-date">To:</label>
+      <input type="date" class="form-control" name="toDate" [(ngModel)]="statementDuration.toDate" #toDate="ngModel" [min]=statementDuration.fromDate>
+    </div>
+    <button type="submit" class="btn btn-default"  style="margin-top: 2%;">Submit</button>
+  </form>
+  <div class="downloadPdf"> <input type="button" value="Download PDF" (click)="captureScreen() " style=" background: linear-gradient(to bottom right, #32b0bb, #064d69);border: white;margin-bottom: 2%; align-self: center; "/></div>
+  <div *ngIf="searched">
+  <table id="contentToConvert" class="table table-striped table-active table-responsive-md">
+    <thead style="background-color: #adb0c5;">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ID</th>
+        <th scope="col">Type.</th>
+        <th scope="col">Credit/Debit</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{transaction.transactionId}}</td>
+        <td>{{transaction.transactionType}}</td>
+        <!-- <td>{{transaction.accountNumber}}</td> -->
+        <td>{{transaction.transactionMode}}</td>
+        <td>{{transaction.amount | currency : 'INR'}}</td>
+        <td>{{transaction.transactionDate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

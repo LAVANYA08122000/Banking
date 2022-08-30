@@ -1,0 +1,53 @@
+.header {
+    overflow: hidden;
+    background-image: linear-gradient(to right,#064d69, #32b0bb);    padding: 10px;;
+    width: 100%;
+    top: 0;
+    font-weight: 500;
+}
+
+.header a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+pdf-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(5px 5px 5px #222222);
+  }
+
+.header a:hover {
+    opacity: 60%;
+}
+
+.scrollme {
+    overflow-x: auto;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.btn {
+    justify-self: center;
+    width: 75%;
+    background-image: linear-gradient(to right, #861F41, #e06890);
+}
+
+.btn:hover {
+    background-image: linear-gradient(to right, #e06890, #861F41);
+}
+
+.button-grp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

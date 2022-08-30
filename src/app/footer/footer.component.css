@@ -1,0 +1,22 @@
+.footer {
+    /* position: fixed; */
+    padding: 20px;
+    background-image: linear-gradient(to right, #064d69, #32b0bb);
+    bottom: 0;
+    width: 100%;
+    height: 175px;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .footer a {
+    color: black;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .footer a:hover {
+    opacity: 60%;
+  }
+  

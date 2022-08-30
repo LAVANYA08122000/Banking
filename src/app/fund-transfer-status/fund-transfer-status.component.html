@@ -1,0 +1,20 @@
+<div class="text-center">
+    <img src="/assets/images/MpsasLogo.png" alt="mpsas-bank-logo" width="160" height="160">
+</div>
+<div class="wrapper container" style="width: 46%; position: relative;">
+    <div class="h2" *ngIf="transactionStatus === 'SUCCESS' else failureBlock">Fund Transfer was Successful.
+        <div class="h4">TransactionId:{{transactionId}}</div>
+        <div class="h4">Sent From:{{fromAccountNumber}}</div>
+        <div class="h4">Sent To:{{toAccountNumber}}</div>
+        <div class="h4">Amount:{{transactionAmount}}</div>
+        <div class="h4">Transaction Type:{{transactionType}}</div>
+        <div class="h4">Transaction Remarks:{{remarks}}</div>
+    </div>
+    <ng-template class="h2" #failureBlock>Ohn no! Fund Transfer Failed.
+        <div>Please retry.</div>
+    </ng-template>
+    <div style="margin-bottom: 3%;">
+        <a [routerLink]="['/account-summary']"><button class="btn btn-primary" type="submit">Back to
+                Dashboard</button></a>&nbsp;
+    </div>
+</div>

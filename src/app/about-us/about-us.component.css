@@ -1,0 +1,36 @@
+.header {
+  overflow: hidden;
+  background-image: linear-gradient(to bottom right, #be8b9c, #d13f70, #a73259);
+  padding: 10px;
+  width: 100%;
+  top: 0;
+  font-weight: 500;
+}
+
+.header a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.header a:hover {
+  opacity: 60%;
+}
+
+.footer {
+  padding: 20px;
+  background-image: linear-gradient(to bottom right, #be8b9c, #d13f70, #a73259);
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.container {
+  height: 50vh;
+}

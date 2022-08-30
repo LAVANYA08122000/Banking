@@ -1,0 +1,20 @@
+.header {
+    overflow: hidden;
+    background-image: linear-gradient(to right, #064d69, #32b0bb);
+    padding: 10px;
+    width: 100%;
+    top: 0;
+    font-weight: 500;
+  }
+  .header a {
+    float: left;
+    color: rgb(252, 251, 248);
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+  }
+  .header a:hover {
+    opacity: 70%;
+  }

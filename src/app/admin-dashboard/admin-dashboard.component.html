@@ -1,0 +1,189 @@
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModal">Open Modal</button>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Status</h4>
+        </div>
+        <div class="container">
+          <!-- <tld-file-viewer [src]="pdfSource" [type]="type"></tld-file-viewer> -->
+          <pdf-viewer [src]="pdfSource"
+                      [original-size]="false"></pdf-viewer>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+
+<div class="header">
+  <a routerLink="/home">MPSAS Bank</a>
+  <a>Welcome, {{name | uppercase}}</a>
+  <div style="float: right;">
+    <a routerLink="/logout">Logout</a>
+  </div>
+</div>
+<br>
+<div class="button-grp">
+  <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showPendingRequests()">Show Pending
+    Requests</button>
+  <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showApprovalForm()">Approve Pending Requests</button>
+  <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showSearchForm()">Search For a Customer</button>
+  <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showErrorLoginsForm()">Unblock Customer</button>
+</div>
+<div *ngIf="showErrorLogins" class="wrapper container" style="width: 20%;">
+  <p class="h3">Blocked Accounts</p>
+  <br>
+  <form (ngSubmit)= "unblock()" #approvalForm="ngForm">
+    <div class="form-group">
+      <label for="refNo">User ID</label>
+      <select [(ngModel)]="blockedUserId" class="form-control" name="refNo" #refNo="ngModel"
+        [ngClass]="{ 'is-invalid': approvalForm.submitted}" required>
+        <option *ngFor="let errorLogin of errorLogins" value="{{errorLogin}}">
+          {{errorLogin}}
+        </option>
+      </select>
+      <div class="invalid-feedback" *ngIf="approvalForm.submitted && refNo.invalid && (refNo.dirty || refNo.touched)">
+        <div *ngIf="refNo.errors.required">User ID is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" value="Unblock">
+    </div>
+  </form>
+  <div class="alert alert-warning" role="alert" *ngIf="approvalStatus">{{approvalMessage}}</div>
+</div>
+<div *ngIf="showApprovalToggle" class="wrapper container" style="width: 20%;">
+  <p class="h3">Admin Approval</p>
+  <br>
+  <form (ngSubmit)= "approve()" #approvalForm="ngForm">
+    <div class="form-group">
+      <label for="refNo">Customer ID</label>
+      <select [(ngModel)]="adminApproval.custId" class="form-control" name="refNo" #refNo="ngModel"
+        [ngClass]="{ 'is-invalid': approvalForm.submitted}" required>
+        <option *ngFor="let customer of customerRequestStatus.customers" value="{{customer.custId}}">
+          {{customer.custId}}
+        </option>
+      </select>
+      <!-- <div class="invalid-feedback" *ngIf="approvalForm.submitted && refNo.invalid && (refNo.dirty || refNo.touched)">
+        <div *ngIf="refNo.errors.required">Customer ID is required</div>
+      </div> -->
+    </div>
+    <div class="form-group">
+      <label for="response">Approve / Reject</label>
+      <select [(ngModel)]="adminApproval.accountStatus" class="form-control" name="response" #response="ngModel"
+        [ngClass]="{ 'is-invalid': approvalForm.submitted && response.invalid }" required>
+        <option value="Approved">Approve</option>
+        <option value="Rejected">Reject</option>
+      </select>
+      <div class="invalid-feedback"
+        *ngIf="approvalForm.submitted && response.invalid && (response.dirty || response.touched)">
+        <div *ngIf="response.errors.required">Please select a response</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" value="Confirm">
+    </div>
+  </form>
+  <div class="alert alert-warning" role="alert" *ngIf="approvalStatus">{{approvalMessage}}</div>
+</div>
+<div *ngIf="showSearchToggle" class="wrapper container" style="width: 20%;">
+  <p class="h3">Search</p>
+  <br>
+  <form (ngSubmit)="f.valid && search()" #f="ngForm">
+    <div class="form-group">
+      <label>Customer ID</label>
+      <input class="form-control" type="text" name="refNo1" [(ngModel)]="custId" #refNo1="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && refNo1.invalid }" required>
+      <div class="invalid-feedback" *ngIf="f.submitted && refNo1.invalid && (refNo1.dirty || refNo1.touched)">
+        <div *ngIf="refNo1.errors?.['required']">Customer ID is required</div>
+        <div *ngIf="refNo1.errors?.['pattern']">Customer ID must be of 3 digits</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" value="Search" style="width: 100%;">
+    </div>
+  </form>
+  <div class="alert alert-danger" *ngIf="wrongServicerefNo">Wrong Customer ID</div>
+  <div class="alert alert-danger" *ngIf="searchError">Unable to search</div>
+</div>
+<div *ngIf="searched && showSearchToggle" class="card border-dark mb-3 mx-auto" style="max-width: 40rem; margin-top: 20px;">
+  <div class="card-header">{{generatedCustomer.customer.name}}'s Details</div>
+  <div class="card-body">
+    <p class="card-text">Customer ID: {{generatedCustomer.customer.custId}}</p>
+    <p class="card-text">Name: {{generatedCustomer.customer.name}}</p>
+    <p class="card-text">Mobile Number: {{generatedCustomer.customer.mobileNo}}</p>
+    <p class="card-text">Email ID: {{generatedCustomer.customer.emailId}}</p>
+    <p class="card-text">Aadhaar Number: {{generatedCustomer.customer.aadhaarNo}}</p>
+    <p class="card-text">Date of Birth: {{generatedCustomer.customer.dateOfBirth}}</p>
+    <p class="card-text">Occupation: {{generatedCustomer.customer.occupationType}}</p>
+    <p class="card-text">Source of Income: {{generatedCustomer.customer.incomeSource}}</p>
+    <p class="card-text">Gross Annual Income: {{generatedCustomer.customer.grossIncome}}</p>
+    <!-- <p class="card-text">Net Banking Required: {{generatedCustomer.customer.netBankingRequirement}}</p> -->
+    <!-- <p class="card-text">Debit Card Required: {{generatedCustomer.customer.debitCardRequirement}}</p> -->
+    <p class="card-text">Account Type: {{generatedCustomer.customer.accountType}}</p>
+    <p class="card-text">Account Status: {{generatedCustomer.customer.accountStatus}}</p>
+    <!-- <p class="card-text">Aadhar Card File: {{generatedCustomer.customer.aadharFile}}</p>
+    <p class="card-text">Pan Card File: {{generatedCustomer.customer.panFile}}</p> -->
+  </div>
+</div>
+<div class="scrollme" *ngIf="requestsToggle">
+  <table class="table table-striped table-bordered table-active table-responsive-md  text-nowrap">
+    <thead style="background-color: #adb0c5;">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Customer ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">Email ID</th>
+        <th scope="col">Aadhaar Card Number</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Occupation Type</th>
+        <th scope="col">Source of Income</th>
+        <th scope="col">Gross Annual Income</th>
+        <th scope="col">Address Line 1</th>
+        <th scope="col">Address Line 2</th>
+        <th scope="col">Landmark</th>
+        <th scope="col">State</th>
+        <th scope="col">City</th>
+        <th scope="col">Pincode</th>
+        <th scope="col">Aadhar Card File</th>
+        <th scope="col">Pan Card File</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customerRequestStatus.customers; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{customer.custId}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.gender}}</td>
+        <td>{{customer.mobileNo}}</td>
+        <td>{{customer.emailId}}</td>
+        <td>{{customer.aadhaarNo}}</td>
+        <td>{{customer.dateOfBirth}}</td>
+        <td>{{customer.occupationType}}</td>
+        <td>{{customer.incomeSource}}</td>
+        <td>{{customer.grossIncome}}</td>
+        <td>{{customer.addressLine1}}</td>
+        <td>{{customer.addressLine2}}</td>
+        <td>{{customer.landmark}}</td>
+        <td>{{customer.state}}</td>
+        <td>{{customer.city}}</td>
+        <td>{{customer.pincode}}</td>
+        <td><button (click)="handleClickAadhar(customer.aadharFileName)" class="btn btn-danger btn-lg">
+          View
+        </button></td>
+        <td><button (click)="handleClickPan(customer.panFileName)" class="btn btn-danger btn-lg">
+          View
+        </button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

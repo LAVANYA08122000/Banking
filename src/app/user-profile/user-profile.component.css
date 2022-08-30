@@ -1,0 +1,74 @@
+.wrapper {
+    /* background-color: #ffe2e2; */
+    border-radius: 6px;
+    padding: 0%;
+    width: 50%;
+    position: relative;
+    /* border: .2rem solid black; */
+}
+
+.card{
+    margin-top: 0px;
+    padding: 0px;
+    background-image: white;    
+    border-style: none;
+    color: grey;
+    
+}
+
+.card-text{
+    padding: 4px;
+}
+
+/* align a button to center of div */
+.btn-primary{
+    margin: auto 0;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.form{ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin-top:10px;
+    /* margin-left: 90px; */
+}
+input{
+    border: 1px solid black;
+}
+
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-content{
+  background-color: #f9f9f9;
+    /* border: .2rem solid black; */
+}
+.pos{
+    margin-left: 10px;
+}
+h3{
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* #myModal {
+    width: 70vw;
+} */

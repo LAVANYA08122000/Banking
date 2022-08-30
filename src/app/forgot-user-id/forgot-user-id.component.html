@@ -1,0 +1,23 @@
+<div class="text-center">
+    <img src="/assets/images/home-Logo.jpg" alt="MpsasLogo" width="60" height="60">
+</div>
+<div class="text-center"><a [routerLink]="['/home']"><button class="btn btn-primary" type="submit" style="width: 100%; background: black;border: white;">Home</button></a></div>
+<div class="wrapper container" style="width: 28%;">
+    <h4>Trouble Logging In - Forgot User ID?</h4>
+    <br>
+    <p>Please fill in your credentials to receive your User ID.</p>
+    <br>
+    <form (ngSubmit)="f.valid && checkAccountNumber()" #f="ngForm">
+        <div class="form-group">
+            <label for="accountNumber">Account Number</label>
+            <input class="form-control" type="text" name="accountNumber" placeholder="Your 7-digit account number" [(ngModel)]="model.accountNumber" #accountNumber="ngModel" [ngClass]="{ 'is-invalid': f.submitted && accountNumber.invalid }" required pattern="^[0-9]{7}$">
+            <div class="invalid-feedback" *ngIf="f.submitted && accountNumber.invalid && (accountNumber.dirty || accountNumber.touched)">
+                <div *ngIf="accountNumber.errors.required">Account number is required</div>
+                <div *ngIf="accountNumber.errors.pattern">Account number must be of 7 digits</div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;background: black;border: white;">Proceed</button>
+    </form>
+    <div class="alert alert-danger" *ngIf="accountDoesntExist">Account doesn't exist</div>
+    <div class="alert alert-danger" *ngIf="error">{{message}}</div>
+</div>
