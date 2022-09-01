@@ -4130,6 +4130,7 @@ textarea.form-control-lg {
 }
 #anchor{
   background-image: linear-gradient(to right, #32b0bb, #064d69);
+  border-radius: 80%;
 }
 .navbar-brand {
   padding-top: 0.3125rem;

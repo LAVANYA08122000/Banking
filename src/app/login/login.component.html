@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" style="background-image: url('assets/images/background.png');background-repeat: no-repeat;background-attachment: fixed;background-size: cover;">
     <a href="#" style="float: right;">LTI Bank</a>
     <div style="float: center;">
         <a href="#" routerLink="/home">Home</a>
@@ -9,7 +9,7 @@
         
     </div>
 </div>
-<div class="wrapper container">
+<div class="wrapper container" >
     <p class="h3" style="color: white; text-align: center; text-shadow: 0 0 5px #0000EE, 0 0 5px black;" >LOGIN</p>
     <br>
     <p>Please fill in your credentials to login.</p>
@@ -17,7 +17,7 @@
     <form (ngSubmit)="loginForm.valid && loginCheck()" #loginForm="ngForm">
         <div class="form-group">
             <label for="userId">User ID</label>
-            <input class="form-control" type="text" name="id" placeholder="Your 6-digit user id"
+            <input class="form-control" type="text" name="id" placeholder="Enter your user id"
                 [(ngModel)]="userLogin.userId" #id="ngModel" [ngClass]="{ 'is-invalid': loginForm.submitted && id.invalid }" required>
             <div class="invalid-feedback" *ngIf="loginForm.submitted && id.invalid && (id.dirty || id.touched)">
                 <div class="error" *ngIf="id.errors.required">User ID is required</div>
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input class="form-control" type="password" name="pwd" placeholder="Your password" [(ngModel)]="userLogin.loginPassword"
+            <input class="form-control" type="password" name="pwd" placeholder="Enter your password" [(ngModel)]="userLogin.loginPassword"
                 #pwd="ngModel" [ngClass]="{ 'is-invalid': loginForm.submitted && pwd.invalid }" required>
             <div class="invalid-feedback" *ngIf="loginForm.submitted && pwd.invalid && (pwd.dirty || pwd.touched)">
                 <div class="error" *ngIf="pwd.errors.required">Password is required</div>

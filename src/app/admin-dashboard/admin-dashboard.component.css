@@ -18,10 +18,22 @@
 
 pdf-viewer {
     display: flex;
+    filter: drop-shadow(5px 5px 5px #222222);
+    width: 600px; 
+    height: 400px;
+  }
+
+.modal-content
+{
+    width: 700px;
+    height: 500px;
+}
+.modal-footer
+{
+
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(5px 5px 5px #222222);
-  }
+}
 
 .header a:hover {
     opacity: 60%;
@@ -38,11 +50,11 @@ pdf-viewer {
 .btn {
     justify-self: center;
     width: 75%;
-    background-image: linear-gradient(to right, #861F41, #e06890);
+    background-image: linear-gradient(to right, #064d69, #32b0bb);
 }
 
 .btn:hover {
-    background-image: linear-gradient(to right, #e06890, #861F41);
+    background-image: linear-gradient(to right, #32b0bb, #064d69);
 }
 
 .button-grp{
