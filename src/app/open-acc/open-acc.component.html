@@ -72,12 +72,14 @@
                         <input type="number" class="form-control" name="mobileNo" placeholder="Enter Mobile Number"
                             [(ngModel)]="newAccount.mobileNo" #mobileNo="ngModel"
                             [ngClass]="{ 'is-invalid': f.submitted && mobileNo.invalid }" required minlength="10"
-                            maxlength="10" pattern="[6-9]{1}[0-9]{9}">
+                            maxlength="10" pattern="^[0-9]{10}$">
                         <div *ngIf="f.submitted && mobileNo.invalid" class="invalid-feedback">
-                            <div *ngIf="mobileNo.errors.required">Mobile Number is required</div>
-                            <div *ngIf="mobileNo.errors.minlength || mobileNo.errors.maxlength">Mobile number must be 10
+                            <div *ngIf="mobileNo.errors?.['required']">Mobile Number is required</div>
+                            <div *ngIf="mobileNo.errors?.['minlength']">Mobile number must be 10
                                 digit</div>
-                            <div *ngIf="mobileNo.errors.pattern">Enter Valid Mobile Number</div>
+                             <div *ngIf=" mobileNo.errors?.['maxlength']">Mobile number must be 10
+                                digit</div>  
+                            <div *ngIf="mobileNo.errors?.['pattern']">Enter Valid Mobile Number</div>
                         </div>
                     </div>
                 </div>
@@ -86,12 +88,12 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-6">
                         <input type="email" class="form-control" name="emailId" placeholder="Enter Email Address"
-                            [(ngModel)]="newAccount.emailId" #emailId="ngModel" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*"
+                            [(ngModel)]="newAccount.emailId" #emailId="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                             [ngClass]="{ 'is-invalid': f.submitted && emailId.invalid }" required email>
                             
                         <div *ngIf="f.submitted && emailId.invalid" class="invalid-feedback">
                             <div *ngIf="emailId.errors.required">Email is required</div>
-                            <div *ngIf="emailId.errors.email">Email must be a valid email address</div>
+                            <div *ngIf="emailId.errors?.['pattern']">Enter Valid Email Address Pattern</div>
                         </div>
                     </div>
                 </div>
@@ -101,12 +103,13 @@
                     <div class="col-sm-6">
                         <input type="number" class="form-control" name="aadhaarNo"
                             placeholder="Enter Aadhar Card Number" [(ngModel)]="newAccount.aadhaarNo"
-                            #aadhaarNo="ngModel" [ngClass]="{ 'is-invalid': f.submitted && aadhaarNo.invalid }"
-                            required minlength="16" maxlength="16">
+                            #aadhaarNo="ngModel" [ngClass]="{ 'is-invalid': f.submitted && aadhaarNo.invalid }"                            
+                            required pattern="^[0-9]{16}$" minlength="16" maxlength="16">
                         <div *ngIf="f.submitted && aadhaarNo.invalid" class="invalid-feedback">
                             <div *ngIf="aadhaarNo.errors.required">Aadhaar Number is required</div>
                             <div *ngIf="aadhaarNo.errors.minlength || aadhaarNo.errors.maxlength">Aadhaar number must be 16
                                 digit</div>
+                           <div *ngIf="aadhaarNo.errors?.['pattern']">Enter 16 digit Aadhar Number</div>    
                         </div>
                     </div>
                 </div>
@@ -130,9 +133,10 @@
                         <input type="text" class="form-control" name="panCardNo"
                             placeholder="Enter Pan Card Number" [(ngModel)]="newAccount.panCardNo"
                             #panCardNo="ngModel" [ngClass]="{ 'is-invalid': f.submitted && panCardNo.invalid }"
-                            required>
+                            required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}">
                         <div *ngIf="f.submitted && panCardNo.invalid" class="invalid-feedback">
                             <div *ngIf="panCardNo.errors.required">Pan Card Number is required</div>
+                            <div *ngIf="panCardNo.errors?.['pattern']">Enter valid Pan Card details</div>
                         </div>
                     </div>
                 </div>

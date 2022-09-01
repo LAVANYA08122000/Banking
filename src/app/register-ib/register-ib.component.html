@@ -30,7 +30,7 @@
 <div class="wrapper container center">
     <p class="h3" style="color: white; text-align: center; text-shadow: 0 0 5px black, 0 0 5px black;">REGISTER FOR INTERNET BANKING</p>
     <div class="alert alert-danger" *ngIf="error">{{message}}</div>
-    <form class="form" name="form" (ngSubmit)="onSubmit()" [appMustMatch]="['userPassword', 'cuserPassword' ,'txPassword', 'ctxPassword']" #f="ngForm">
+    <form class="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" [appMustMatch]="['userPassword', 'cuserPassword' ,'txPassword', 'ctxPassword']" #f="ngForm">
         <div class="form-group">
             <label> Account Number</label>
             <input input type="number" class="form-control" name="userId"
@@ -40,7 +40,7 @@
             <div *ngIf="f.submitted && userId.invalid" class="invalid-feedback" required
             pattern="^[0-9]{6}$">
                 <div *ngIf="userId.errors.required">Account Number is required</div>
-                <div *ngIf="userId.errors.pattern">Enter Valid Account Number</div>
+                <div *ngIf="userId.errors?.['pattern']">Enter Valid Account Number</div>
             </div>
             <!-- <div>{{model.accountNumber.length()}}</div> -->
         </div>
@@ -55,7 +55,7 @@
             pattern="^[0$-9]{3}">
                 <div *ngIf="userPassword.errors.required">Password is required</div>
                 <div *ngIf="userPassword.errors.minlength">Password must be at least 8 characters</div>
-                <div *ngIf="userPassword.errors.pattern">Password pattern is not valid</div>
+                <div *ngIf="userPassword.errors?.['pattern']">Password pattern is not valid</div>
             </div>
         </div>
         <div class="form-group">
@@ -72,21 +72,23 @@
             <label> Set Transaction Password</label>
             <input class="form-control" type="password" name="txPassword" 
             placeholder="Enter Password" [(ngModel)]="model.transactionPassword" #txPassword="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && txPassword.invalid }" required
-            pattern="^[0$-9]{4,}" required minlength="4">
+            [ngClass]="{ 'is-invalid': f.submitted && txPassword.invalid }" 
+             required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}" minlength="4"> 
             <div *ngIf="f.submitted && txPassword.invalid" class="invalid-feedback">
                 <div *ngIf="txPassword.errors.required">Password is required</div>
                 <div *ngIf="txPassword.errors.minlength">Password must be at least 4 characters</div>
+                <div *ngIf="txPassword.errors?.['pattern']">Transaction password is not valid</div>
             </div>
         </div>
         <div class="form-group">
             <label> Confirm Transaction Password</label>
             <input class="form-control" type="password" name="ctxPassword" 
             placeholder="Enter Password" [(ngModel)]="model.ctxPassword"  #ctxPassword="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && ctxPassword.invalid }" required>
+            [ngClass]="{ 'is-invalid': f.submitted && ctxPassword.invalid }" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}">
             <div *ngIf="f.submitted && ctxPassword.invalid" class="invalid-feedback">
                 <div *ngIf="ctxPassword.errors.required">Confirm Password is required</div>
                 <div *ngIf="ctxPassword.errors.mustMatch">Passwords must match</div>
+                <div *ngIf="ctxPassword.errors?.['pattern']">Transaction password is not valid</div>
             </div>
         </div>
 

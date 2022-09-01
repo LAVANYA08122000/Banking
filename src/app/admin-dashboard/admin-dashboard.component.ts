@@ -134,7 +134,9 @@ export class AdminDashboardComponent implements OnInit {
 
   public handleClickPan(panFile: string) {
     this.pdfSource = "assets/uploads/" + panFile;
+    console.log(this.pdfSource);
     document.getElementById('openModalButton').click();
+
   }
 
 }
